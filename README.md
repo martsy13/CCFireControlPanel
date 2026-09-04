@@ -1,17 +1,28 @@
 # CCFireControlPanel
 
-SCADA software for fire alarm, notification, and suppression systems in minecraft on computercraft:tweaked.
+SCADA-система для управления пожарной сигнализацией, пожаротушением и оповещением в ComputerCraft:Tweaked.
 
-# installation and run instructions:
-1. download the otmonitor.lua and config.json files to the computer where you plan to run the program.
-2. connect the **redstone relay** to the computer using a peripheral cable.
-3. connect a 5x8 block or larger monitor to the computer.
-4. configure the system (see [system setup](#system-setup)).
-5. run otmonitor.lua.
+Система основана на редстоун-реле. Каждое редстоун-реле настраивается как **зона** или **исполнительное устройство**:
+- Зона. Реле в таком случае работает в режиме приёма сигнала. К его передней стороне подключается источник редстоуна, для сработки этой зоны достаточно подать активировать редстоун на реле.
+- Исполнительное устройство. Им может быть оповещатель или модуль пожаротушения. Реле работает как выход. Для организации оповещения можно установить на переднюю сторону реле колокол, лампу, нотный блок или другие подобные блоки. Для организации пожаротушения нужно установить на переднюю сторону раздатчик с ведром воды.
 
-# system setup
-1. open the config.json file\
-you will see a structure similar to this:
+Также в зоне может быть несколько редстоун-реле. Сделано это для:
+1. Больших зон (спортзалов, концертных залов). Одной линии редстоуна и одного реле может не хватить.
+2. Гибкой адресной системы, где каждый извещатель занимает своё редстоун-реле.\
+При сработке, в зоне отображается номер сработавшего редстоун-реле.
+
+Зоны и линии СОУЭ/ПТ проверяются на обрыв.
+
+# Инструкция по установке и запуску:
+1. Скачайте `otmonitor.lua` и `config.json` на компьютер, на котором предполагается запуск АРМ.
+2. Подключите редстоун-реле к компьютеру через периферийный кабель.
+3. Подключите монитор 5x8 блоков и больше к компьютеру.
+4. Настройте систему (см. [Настройка](#настройка)).
+5. Запустите `otmonitor.lua` или `bg otmonitor.lua` (для фонового запуска).
+
+# Настройка
+Откройте `config.json`.
+Вы увидите похожую структуру:
 ```
 {
   "system_title": "Monitor",
@@ -25,11 +36,24 @@ you will see a structure similar to this:
     {
       "id": "ZONE_02",
       "name": "Auditorium",
-      "inputs": ["redstone_relay_2"],
+      "inputs": ["redstone_relay_2", "redstone_relay_3"],
       "col": 1
     }
   ],
-  "notification": ["redstone_relay_3"],
-  "firefighting": ["redstone_relay_4"]
+  "notification": ["redstone_relay_4", "redstone_relay_5"],
+  "firefighting": ["redstone_relay_6"]
 }
 ```
+## Описание структуры файла конфигурации:
+- `system-title`: Надпись в верхней части окна.
+- `zones`: Список зон.
+- `notification`: Список устройств, которые будут использоваться для оповещения.
+- `firefighting`: Список устройств для пожаротушения.
+
+## Настройка зон и устройств (редстоун-реле).
+Рассмотрим структуру элемента в списке zones.
+У него есть параметр:
+- `id`: ID зоны.
+- `name`: Отображаемое название зоны.
+- `inputs`: Список редстоун-реле, входящих в зону.
+- `col`: Столбец на экране в котором будет находиться зона.
