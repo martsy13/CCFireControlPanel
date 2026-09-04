@@ -1,0 +1,19 @@
+{
+  "system_title": "Monitor",
+  "zones": [
+    {
+      "id": "ZONE_01",
+      "name": "Stage",
+      "inputs": ["redstone_relay_1"],
+      "col": 1
+    },
+    {
+      "id": "ZONE_02",
+      "name": "Auditorium",
+      "inputs": ["redstone_relay_2", "redstone_relay_3"],
+      "col": 1
+    }
+  ],
+  "notification": ["redstone_relay_4", "redstone_relay_5"],
+  "firefighting": ["redstone_relay_6"]
+}
