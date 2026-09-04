@@ -10,7 +10,7 @@ SCADA software for fire alarm, notification, and suppression systems in minecraf
 5. run otmonitor.lua.
 
 # system setup
-1. open the config.json file
+1. open the config.json file\
 you will see a structure similar to this:
 ```
 {
